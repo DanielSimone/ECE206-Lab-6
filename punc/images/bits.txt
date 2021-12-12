@@ -1,0 +1,42 @@
+---- LOADS ----
+LD R0, #21 //BaseR                              //0 NEW
+LDR R1, R0, #1 //maxNumber                      //1
+LDR R2, R0, #2 //maxPossible                    //2
+LDR R3, R0, #3 //temp1                          //3
+LDR R4, R0, #3 //temp2                          //4
+LDR R5, R0, #3 //exponent                       //5
+---- LOADS ----
+
+---- LOOP 1 ----
+NOT R6, R1 //temp2 = temp1 - maxNumber;         //6
+ADD R6, R6, #1                                  //7
+ADD R4, R3, R6                                  //8
+BRp #9 //if(temp2 >= 0) goto endloop1;          //9 NEW
+BRz #8                                          //10 NEW
+ADD R2, R2, R2 //maxPossible += maxPossible;    //11
+LDR R6, R0, #2 //temp1 = maxPossible - 1;       //12
+NOT R6, R6                                      //13
+ADD R6, R6, #1                                  //14 NEW
+ADD R3, R2, R6                                  //15
+LDR R6, R0, #2 //exponent++;                    //16
+ADD R5, R5, R6                                  //17
+BR #-13                                         //18 NEW
+---- LOOP 1 ----
+
+---- STORES ----
+STR R3, R0, #5                                  //19
+ST R5, #5                                       //20
+HALT                                            //21
+---- STORES ----
+
+---- CONSTANTS ----
+0016 //Offset for this location                 //22
+00F5 //#245                                     //23
+0001 //#1                                       //24
+0000 //#0                                       //25
+---- CONSTANTS ----
+
+---- RESULTS ----
+0000 //memory location for final exponent       //26
+0000 //memory location for final temp1          //27
+---- RESULTS ----
